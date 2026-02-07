@@ -1,10 +1,10 @@
 # Grade Computing System - Lab Report
 
 ## Group Members
-Chiong, Heart
-Limpahan, Mark
-Locsin, Roxanne
-Sajol, Rhenel
+[Chiong, Heart]
+[Limpahan, Mark]
+[Locsin, Roxanne]
+[Sajol, Rhenel]
 
 ## Overview
 This project implements a Grade Computing System using both **multithreading** and **multiprocessing** in Python. The system calculates the General Weighted Average (GWA) for multiple subjects, demonstrating concurrent execution patterns and performance differences.
@@ -58,21 +58,9 @@ python comparison.py
 ### 2. Compare execution times between multithreading and multiprocessing.
 
 Based on our testing:
+Our performance tests show that multithreading is dramatically faster than multiprocessing across all dataset sizes. With 10 subjects, multithreading completed in 0.007 seconds versus 0.362 seconds for multiprocessing (50x faster). At 50 subjects, the times were 0.008 seconds versus 1.370 seconds (171x faster). For 100 subjects, multithreading took 0.022 seconds compared to 2.862 seconds for multiprocessing (130x faster), and with 200 subjects, the gap widened to 0.041 seconds versus 5.766 seconds (140x faster).
 
-**For Small Datasets (< 100 items):**
-- **Multithreading is faster** (typically 2-5x faster)
-- Example: For 10 subjects, MT: ~0.015s vs MP: ~0.050s
-- Reason: Multiprocessing has overhead from creating separate processes, inter-process communication (IPC), and memory copying.
-
-**For Large Datasets (> 1000 items) with CPU-intensive work:**
-- **Multiprocessing becomes faster** for CPU-bound tasks
-- Reason: Can utilize multiple CPU cores effectively, overcoming the process creation overhead.
-
-**For this specific GWA calculation:**
-- Multithreading is generally faster because:
-  1. The task is I/O-bound (printing results)
-  2. Very little CPU computation (simple arithmetic)
-  3. Overhead of creating processes outweighs benefits
+Overall, multithreading averaged 0.020 seconds while multiprocessing averaged 2.590 seconds, with multithreading winning all 4 out of 4 tests. The massive time difference is due to multiprocessing's high overhead—creating separate processes, allocating individual memory spaces, and managing inter-process communication are all time-consuming operations. Since our GWA calculation involves minimal computation and is primarily I/O-bound (printing output), the overhead of multiprocessing far outweighs any benefits, making multithreading the superior choice for this task.
 
 ### 3. Can Python handle true parallelism using threads? Why or why not?
 
