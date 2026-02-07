@@ -1,51 +1,29 @@
-"""
-Grade Computing System - Multithreading Implementation
-This module demonstrates concurrent grade processing using Python threads.
-"""
+#Multithreading GWA Calculator
 
 import threading
 import time
 from typing import List, Tuple
 
-# Thread-safe data structure for collecting results
 results_lock = threading.Lock()
 results = []
 
 
 def compute_gwa(subject_name: str, grade: float, thread_id: int) -> None:
-    """
-    Compute and store the grade for a subject using threading.
-    
-    Args:
-        subject_name: Name of the subject
-        grade: Grade value for the subject
-        thread_id: Identifier for the thread
-    """
-    # Simulate some processing time
     time.sleep(0.01)
-    
-    # Thread-safe result storage
     with results_lock:
         results.append((subject_name, grade))
         print(f"[Thread-{thread_id}] Processed {subject_name}: {grade}")
 
 
 def calculate_final_gwa(grades: List[float]) -> float:
-    """Calculate the General Weighted Average."""
     if not grades:
         return 0.0
     return sum(grades) / len(grades)
 
 
 def run_multithreading_gwa() -> Tuple[float, float]:
-    """
-    Main function to run the multithreading GWA calculator.
-    
-    Returns:
-        Tuple of (GWA, execution_time)
-    """
     global results
-    results = []  # Reset results
+    results = []
     
     print("\n" + "="*60)
     print("GRADE COMPUTING SYSTEM - MULTITHREADING")

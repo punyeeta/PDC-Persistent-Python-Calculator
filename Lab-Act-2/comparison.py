@@ -1,8 +1,4 @@
-"""
-Grade Computing System - Performance Comparison
-This script compares multithreading vs multiprocessing for GWA computation.
-WINDOWS COMPATIBLE VERSION
-"""
+#Test Computation and Comparison of Multithreading and Multiprocessing GWA Calculators
 
 import threading
 import time
@@ -12,7 +8,6 @@ import statistics
 
 
 def compute_gwa_thread(subject_name: str, grade: float, thread_id: int, results: List, lock: threading.Lock) -> None:
-    """Thread worker function."""
     time.sleep(0.001)  # Small delay to simulate processing
     with lock:
         results.append((subject_name, grade))
@@ -20,14 +15,12 @@ def compute_gwa_thread(subject_name: str, grade: float, thread_id: int, results:
 
 
 def compute_gwa_process(subject_name: str, grade: float, process_id: int, result_queue: Queue) -> None:
-    """Process worker function - must be at module level for Windows."""
     time.sleep(0.001)  # Small delay to simulate processing
     result_queue.put((subject_name, grade))
     print(f"[Process-{process_id}] {subject_name}: {grade}")
 
 
 def test_multithreading(subjects_data: List[Tuple[str, float]]) -> Tuple[float, float, List[Tuple[str, float]]]:
-    """Test multithreading performance."""
     results = []
     results_lock = threading.Lock()
     
@@ -53,7 +46,6 @@ def test_multithreading(subjects_data: List[Tuple[str, float]]) -> Tuple[float, 
 
 
 def test_multiprocessing(subjects_data: List[Tuple[str, float]]) -> Tuple[float, float, List[Tuple[str, float]]]:
-    """Test multiprocessing performance."""
     result_queue = Queue()
     
     start_time = time.time()

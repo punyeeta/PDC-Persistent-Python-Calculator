@@ -1,8 +1,4 @@
-"""
-Grade Computing System - Multiprocessing Implementation
-This module demonstrates concurrent grade processing using Python processes.
-WINDOWS COMPATIBLE VERSION
-"""
+#Mutliprocessing GWA Calculator
 
 from multiprocessing import Process, Queue
 import time
@@ -10,16 +6,6 @@ from typing import List, Tuple
 
 
 def compute_gwa_mp(subject_name: str, grade: float, process_id: int, result_queue: Queue) -> None:
-    """
-    Compute and store the grade for a subject using multiprocessing.
-    Must be defined at module level for Windows compatibility.
-    
-    Args:
-        subject_name: Name of the subject
-        grade: Grade value for the subject
-        process_id: Identifier for the process
-        result_queue: Queue for process-safe result storage
-    """
     # Simulate some processing time
     time.sleep(0.01)
     
@@ -29,19 +15,12 @@ def compute_gwa_mp(subject_name: str, grade: float, process_id: int, result_queu
 
 
 def calculate_final_gwa(grades: List[float]) -> float:
-    """Calculate the General Weighted Average."""
     if not grades:
         return 0.0
     return sum(grades) / len(grades)
 
 
 def run_multiprocessing_gwa() -> Tuple[float, float]:
-    """
-    Main function to run the multiprocessing GWA calculator.
-    
-    Returns:
-        Tuple of (GWA, execution_time)
-    """
     print("\n" + "="*60)
     print("GRADE COMPUTING SYSTEM - MULTIPROCESSING")
     print("="*60)
