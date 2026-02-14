@@ -3,24 +3,29 @@ import threading
 
 # Deduction functions (separate tasks)
 def compute_sss(salary):
-    print(f"SSS computed by: {threading.current_thread().name}")
     return salary * 0.045
 
 def compute_philhealth(salary):
-    print(f"PhilHealth computed by: {threading.current_thread().name}")
     return salary * 0.025
 
 def compute_pagibig(salary):
-    print(f"Pag-IBIG computed by: {threading.current_thread().name}")
     return salary * 0.02
 
 def compute_tax(salary):
-    print(f"Withholding Tax computed by: {threading.current_thread().name}")
     return salary * 0.10
+def salary_input(text):
+    width = len(text) + 4
+    print("+" + "-" * width + "+")
+    print(f"|  {text}  |")
+    print("+" + "-" * width + "+")
 
 
 def main():
-    salary = 30000  # Example salary
+    salary = float(input("Enter monthly salary: "))
+
+    print()
+    salary_input(f"Salary Entered: PHP {salary:,.2f}")
+    print("\nStarting parallel deduction computation...\n")
 
     # Create ThreadPoolExecutor
     with ThreadPoolExecutor(max_workers=4) as executor:
@@ -37,15 +42,17 @@ def main():
         tax = future_tax.result()
 
     total_deduction = sss + philhealth + pagibig + tax
+    Net_salary = salary - total_deduction
 
     # Display results
-    print("\n--- Deduction Breakdown ---")
-    print(f"SSS: {sss:.2f}")
-    print(f"PhilHealth: {philhealth:.2f}")
-    print(f"Pag-IBIG: {pagibig:.2f}")
-    print(f"Withholding Tax: {tax:.2f}")
-    print(f"Total Deduction: {total_deduction:.2f}")
-
+    print("\n========== Deduction Breakdown ==========")
+    print(f"{'SSS':15} : {sss:10.2f}")
+    print(f"{'PhilHealth':15} : {philhealth:10.2f}")
+    print(f"{'Pag-IBIG':15} : {pagibig:10.2f}")
+    print(f"{'Withholding Tax':15} : {tax:10.2f}")
+    print("----------------------------------------")
+    print(f"{'Total Deduction':15} : {total_deduction:10.2f}")
+    print(f"{'Net Salary':15} : {Net_salary:10.2f}")
 
 if __name__ == "__main__":
     main()

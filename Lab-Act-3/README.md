@@ -1,3 +1,7 @@
+# Section: BSCS-3A
+# Group Name: Shonget
+# Group Members: Chiong, Limpahan, Locsin, Sajol
+
 ## Analysis Questions
 *(To be answered in README.md)*
 Provide concise but well-structured explanations. 
