@@ -1,6 +1,6 @@
 # CS323: Parallel and Distributed Computing
-*CS3A*
 
+##*CS3A*
 ## Group Name: Shonget
 **Group Members:**
 1. Chiong, Heart
