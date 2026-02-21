@@ -59,3 +59,41 @@ def parallel_processing(applicants, workers=4):
     end_time = time.time()
     
     return end_time - start_time
+
+# -------------------------------
+# Main Execution
+# -------------------------------
+if __name__ == "__main__":
+    
+    number_of_applicants = 20
+    applicants = list(range(1, number_of_applicants + 1))
+    
+    print("Simulating Government ID Processing System")
+    print("Number of Applicants:", number_of_applicants)
+    print("-----------------------------------------")
+    
+    # Run Sequential
+    seq_time = sequential_processing(applicants)
+    print("Sequential Execution Time:", round(seq_time, 4), "seconds")
+    
+    # Run Parallel
+    par_time = parallel_processing(applicants, workers=4)
+    print("Parallel Execution Time:", round(par_time, 4), "seconds")
+    
+    # Calculate Speedup
+    speedup = seq_time / par_time
+    print("Speedup:", round(speedup, 2))
+    
+    print("-----------------------------------------")
+    
+    # Check scaling
+    ideal_speedup = 4
+    print("Ideal Speedup (4 threads):", ideal_speedup)
+    
+    if speedup < ideal_speedup:
+        print("Result: Not ideal scaling due to synchronization and shared resources.")
+    else:
+        print("Result: Near ideal scaling.")
+
+
+
