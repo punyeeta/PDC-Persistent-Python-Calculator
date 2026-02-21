@@ -45,3 +45,17 @@ def sequential_processing(applicants):
     end_time = time.time()
 
     return end_time - start_time
+
+# Parallel Version
+def parallel_processing(applicants, workers=4):
+    global id_counter
+    id_counter = 0
+    
+    start_time = time.time()
+    
+    with ThreadPoolExecutor(max_workers=workers) as executor:
+        executor.map(process_applicant, applicants)
+    
+    end_time = time.time()
+    
+    return end_time - start_time
