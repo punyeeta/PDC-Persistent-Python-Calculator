@@ -1,0 +1,129 @@
+import random
+import time
+from multiprocessing import Process, Queue
+
+# --- 1. DATASET GENERATION ---
+# Options: 1000 (Small), 100000 (Medium), 1000000 (Large)
+N = 100000  
+data = [random.randint(1, 1000000) for _ in range(N)]
+target = data[random.randint(0, N - 1)] 
+
+# --- 2. SEQUENTIAL ALGORITHMS ---
+
+def sequential_search(arr, target_val):
+    """Simple linear search as a baseline."""
+    for i in range(len(arr)):
+        if arr[i] == target_val:
+            return i
+    return -1
+
+def merge_sort(arr):
+    """Sequential Merge Sort."""
+    if len(arr) <= 1:
+        return arr
+    mid = len(arr) // 2
+    left = merge_sort(arr[:mid])
+    right = merge_sort(arr[mid:])
+    return merge(left, right)
+
+def merge(left, right):
+    """Helper function to merge two sorted lists."""
+    result = []
+    i = j = 0
+    while i < len(left) and j < len(right):
+        if left[i] < right[j]:
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+    result.extend(left[i:])
+    result.extend(right[j:])
+    return result
+
+# --- 3. PARALLEL ALGORITHMS ---
+
+def search_worker(sub_data, target_val, q, offset):
+    """Search logic for parallel processes."""
+    for i in range(len(sub_data)):
+        if sub_data[i] == target_val:
+            q.put(i + offset) # Return the global index
+            return
+    q.put(-1)
+
+def sort_worker(sub_data, q):
+    """Sort logic for parallel processes."""
+    sorted_chunk = merge_sort(sub_data)
+    q.put(sorted_chunk)
+
+def run_parallel_search(arr, target_val):
+    """Divides dataset to be searched concurrently."""
+    chunk_size = len(arr) // 4
+    q = Queue()
+    processes = []
+    
+    for i in range(4):
+        start_idx = i * chunk_size
+        end_idx = (i + 1) * chunk_size if i < 3 else len(arr)
+        p = Process(target=search_worker, args=(arr[start_idx:end_idx], target_val, q, start_idx))
+        processes.append(p)
+        p.start()
+
+    # Get results before joining to avoid deadlock on large data
+    results = [q.get() for _ in range(4)]
+    
+    for p in processes:
+        p.join()
+
+    for res in results:
+        if res != -1:
+            return res
+    return -1
+
+def run_parallel_sort(arr):
+    """Divides dataset into chunks to be sorted independently."""
+    chunk_size = len(arr) // 4
+    q = Queue()
+    processes = []
+
+    for i in range(4):
+        start_idx = i * chunk_size
+        end_idx = (i + 1) * chunk_size if i < 3 else len(arr)
+        p = Process(target=sort_worker, args=(arr[start_idx:end_idx], q))
+        processes.append(p)
+        p.start()
+
+    # Important: Collect from Queue BEFORE joining to prevent pipe-block deadlock
+    sorted_chunks = [q.get() for _ in range(4)]
+    
+    for p in processes:
+        p.join()
+
+    # Merge results into a single globally sorted output
+    final_sorted = sorted_chunks[0]
+    for i in range(1, len(sorted_chunks)):
+        final_sorted = merge(final_sorted, sorted_chunks[i])
+    return final_sorted
+
+# --- 4. MAIN EXECUTION BLOCK ---
+
+if __name__ == "__main__":
+    print(f"Testing Dataset Size: {N}")
+
+    # SEARCH COMPARISON
+    start_s = time.time()
+    sequential_search(data, target)
+    print(f"Sequential Search Time: {time.time() - start_s:.6f}s")
+
+    start_p = time.time()
+    run_parallel_search(data, target)
+    print(f"Parallel Search Time: {time.time() - start_p:.6f}s")
+
+    # SORT COMPARISON
+    start_ss = time.time()
+    merge_sort(data)
+    print(f"Sequential Sort Time: {time.time() - start_ss:.6f}s")
+
+    start_ps = time.time()
+    run_parallel_sort(data)
+    print(f"Parallel Sort Time: {time.time() - start_ps:.6f}s")
