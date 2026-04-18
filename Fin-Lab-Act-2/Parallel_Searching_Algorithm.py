@@ -1,5 +1,4 @@
 import pickle
-import time
 from multiprocessing import Process, Queue, cpu_count
 
 # worker function - gi hint na sa activity sheet ang structure
@@ -16,7 +15,7 @@ def parallel_search(data, target):
     q = Queue()
     processes = []
 
-    # create one process per chunk
+    # mag create ni siyag one process per chunk
     for i in range(n):
         start = i * chunk_size
         end = start + chunk_size if i < n - 1 else len(data)
@@ -24,7 +23,7 @@ def parallel_search(data, target):
         processes.append(p)
         p.start()
 
-    # wait for all processes to finish
+    # hulatan sa niya mahuman ang tanan processes to finish
     for p in processes:
         p.join()
 
@@ -64,11 +63,7 @@ if __name__ == "__main__":
 
     target = 437287
 
-    start = time.time()
     result = parallel_search(data, target)
-    end = time.time()
-
-    print(f"Time: {end - start:.4f}s")
 
     if result != -1:
         print(f"Found {target} at index {result}")
