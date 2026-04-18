@@ -7,21 +7,34 @@
 4. Insights about overhead, synchronization, or merging 
 5. Situations where parallelism was beneficial or unnecessary
 
+---
 
 ### Chiong, Heart
 
 
 
+---
+
 ### Limpahan, Mark Vincent
 
 
+
+---
 
 ### Locsin, Roxanne
 
 
 
+---
+
 ### Sajol, Rhenel Jhon
 
 
 
+---
+
 ### Mag-isa, Jules
+
+
+
+---
