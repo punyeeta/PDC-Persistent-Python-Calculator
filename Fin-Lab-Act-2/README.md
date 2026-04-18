@@ -1,5 +1,6 @@
 # Execution Demo
-<img width="1152" height="648" alt="PDC GIF" src="https://github.com/user-attachments/assets/7579d851-131d-4eaf-88bd-400a6bb2ffd5" />
+<img width="1152" height="648" alt="PDC GIF" src="https://github.com/user-attachments/assets/8c44ec7e-0f62-46b2-985d-e844d415bff3" />
+
 
 # Shonget PDC Answers
 
