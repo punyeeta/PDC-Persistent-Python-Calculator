@@ -37,11 +37,11 @@
 ---
 
 ### Sajol, Rhenel Jhon
-1. 
-2. 
-3. 
-4. 
-5. 
+1. Sequential and parallel gave the same correct outputs, but their speed was different. In searching, sequential was always faster: for example, in large_random it was 0.012810s while parallel was 1.863798s. In sorting, sequential was faster in small_random (0.002174s vs 0.018173s) and medium_random (0.206448s vs 0.284572s), but parallel became faster in large_random (2.388788s vs 3.149599s).
+2. As dataset size increased, runtime increased. For searching, sequential changed from 0.000021s (small_sorted) to 0.012810s (large_random), while parallel stayed much higher at about 0.539038s to 1.959237s because of process setup cost. For sorting, runtimes grew from around 0.001-0.018s at 1,000 elements to around 1.5-3.1s at 1,000,000 elements.
+3. A challenge was setting up multiprocessing and dividing tasks correctly across processes. It was also difficult to ensure all workers finished correctly and produced the same final output. Another challenge was understanding why some runs were slower in parallel, especially on smaller datasets where overhead dominates.
+4. The results show overhead is very important. In searching, parallel added about 0.5-1.9s extra cost even when sequential only needed 0.000021s to 0.012810s. In sorting, synchronization and merging of partitions added extra work, which is why parallel was slower for small/medium datasets and only improved when the workload was large enough.
+5. Parallelism was beneficial in large random sorting (1,000,000 elements), where parallel quicksort took 2.388788s versus 3.149599s sequential. Parallelism was unnecessary for searching in this activity, since sequential was faster in all six datasets. It was also unnecessary for most small and medium sorting cases where overhead was bigger than the speed gain.
 
 ---
 
