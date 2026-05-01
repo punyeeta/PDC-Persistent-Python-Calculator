@@ -4,60 +4,60 @@
 
 ```text
 [WORKER 2] Assigned orders: [2, 5] [NO LOCK]
-[WORKER 2] Processed order 2: Mouse
-[WORKER 2] Processed order 5: Headphones
+[WORKER 2] Processed order 2: Yellow Pad
+[WORKER 2] Processed order 5: Correction Tape
 [WORKER 3] Assigned orders: [3, 6] [NO LOCK]
-[WORKER 3] Processed order 3: Keyboard
-[WORKER 3] Processed order 6: USB Cable
+[WORKER 3] Processed order 3: Pencil
+[WORKER 3] Processed order 6: Eraser
 [WORKER 1] Assigned orders: [1, 4] [NO LOCK]
-[WORKER 1] Processed order 1: Laptop
-[WORKER 1] Processed order 4: Monitor
+[WORKER 1] Processed order 1: Ballpen
+[WORKER 1] Processed order 4: Notebook
 [MASTER] Generated orders:
-	1: Laptop
-	2: Mouse
-	3: Keyboard
-	4: Monitor
-	5: Headphones
-	6: USB Cable
+	1: Ballpen
+	2: Yellow Pad
+	3: Pencil
+	4: Notebook
+	5: Correction Tape
+	6: Eraser
 [MASTER] Mode: UNSYNC
 
 [MASTER] Completed orders (from shared list):
-	Order 2 (Mouse) handled by worker 2
-	Order 1 (Laptop) handled by worker 1
-	Order 3 (Keyboard) handled by worker 3
-	Order 4 (Monitor) handled by worker 1
-	Order 6 (USB Cable) handled by worker 3
-	Order 5 (Headphones) handled by worker 2
+	Order 1 (Ballpen) handled by worker 1
+	Order 2 (Yellow Pad) handled by worker 2
+	Order 3 (Pencil) handled by worker 3
+	Order 4 (Notebook) handled by worker 1
+	Order 5 (Correction Tape) handled by worker 2
+	Order 6 (Eraser) handled by worker 3
 ```
 
 ## Synchronized run 
 
 ```text
-[WORKER 3] Assigned orders: [3, 6] [LOCKED]
-[WORKER 3] Processed order 3: Keyboard
-[WORKER 3] Processed order 6: USB Cable
 [WORKER 2] Assigned orders: [2, 5] [LOCKED]
-[WORKER 2] Processed order 2: Mouse
-[WORKER 2] Processed order 5: Headphones
+[WORKER 2] Processed order 2: Yellow Pad
+[WORKER 2] Processed order 5: Correction Tape
 [WORKER 1] Assigned orders: [1, 4] [LOCKED]
-[WORKER 1] Processed order 1: Laptop
-[WORKER 1] Processed order 4: Monitor
+[WORKER 1] Processed order 1: Ballpen
+[WORKER 1] Processed order 4: Notebook
+[WORKER 3] Assigned orders: [3, 6] [LOCKED]
+[WORKER 3] Processed order 3: Pencil
+[WORKER 3] Processed order 6: Eraser
 [MASTER] Generated orders:
-	1: Laptop
-	2: Mouse
-	3: Keyboard
-	4: Monitor
-	5: Headphones
-	6: USB Cable
+	1: Ballpen
+	2: Yellow Pad
+	3: Pencil
+	4: Notebook
+	5: Correction Tape
+	6: Eraser
 [MASTER] Mode: SYNC
 
 [MASTER] Completed orders (from shared list):
-	Order 1 (Laptop) handled by worker 1
-	Order 2 (Mouse) handled by worker 2
-	Order 3 (Keyboard) handled by worker 3
-	Order 4 (Monitor) handled by worker 1
-	Order 5 (Headphones) handled by worker 2
-	Order 6 (USB Cable) handled by worker 3
+	Order 1 (Ballpen) handled by worker 1
+	Order 3 (Pencil) handled by worker 3
+	Order 2 (Yellow Pad) handled by worker 2
+	Order 4 (Notebook) handled by worker 1
+	Order 6 (Eraser) handled by worker 3
+	Order 5 (Correction Tape) handled by worker 2
 ```
 
 ## Explanation 
