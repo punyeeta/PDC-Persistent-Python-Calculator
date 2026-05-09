@@ -321,7 +321,11 @@ The fault tolerance tests were where I learned the most. Seeing the API keep acc
 ---
 
 ### Locsin, Roxanne
-[Write 2-3 paragraphs based on your actual experience. Discuss what you observed during normal operation, what happened during fault injection, and what you learned about distributed systems. Do not write theoretical explanations — focus on what you actually saw happen in the terminals and Supabase tables.]
+During normal operation, I spent most of the time watching the three terminals side by side: edge_node.py, api_service.py, and worker_service.py. It was interesting to see how each component had its own role but still worked together smoothly. The edge node continuously generated votes, the API kept accepting requests with 200 responses, and the worker processed the queued entries one by one. In Supabase, I could actually see the flow happening in real time scuhc as new rows would appear in votes_queue as pending, then after a few seconds they would change to processed and appear in the votes table. Seeing the whole process visually made the system much easier for me to understand.
+
+During the fault injection test, I stopped worker_service.py to see what would happen. At first, I expected the system to break or throw errors, but surprisingly, the edge node and API kept running normally. The votes continued entering the votes_queue table, but they stayed in pending status since there was no worker processing them. What stood out to me most was when I restarted the worker and saw it continue processing the queued votes without losing any data. That moment made me realize how distributed systems are designed to keep operating even if one component temporarily fails.
+
+From this activity, I learned that distributed systems are not just about running multiple programs at once, but about separating responsibilities so the whole system can stay stable under different conditions. Seeing the logs, terminals, and Supabase tables update in real time helped me better understand how each service depends on the others without completely stopping the system when one fails.
 
 ---
 
