@@ -305,7 +305,10 @@ Latency was measured from `time_created` in the edge node to processing time in 
 
 ### Chiong, Heart
 
-[Write 2-3 paragraphs based on your actual experience. Discuss what you observed during normal operation, what happened during fault injection, and what you learned about distributed systems. Do not write theoretical explanations — focus on what you actually saw happen in the terminals and Supabase tables.]
+My part in this activity was working on the edge node scripts and the fault injection testing. Running `edge_node.py` was simple enough, but what I found interesting was that it had no idea what was happening on the other end. It just kept sending votes regardless of whether the worker was up or not. The fault injection phase made this clearer. When I stopped the worker while the edge node was still running, I expected something to break, but the API kept accepting requests and the queue just held everything until the worker came back online and processed it all automatically. I was relieved that nothing was lost.
+
+That experience made me understand more about fault tolerance, experiencing it through hands on was really amazing rather than understanding the concept. I also realized debugging distributed systems is harder than normal especially when something looked off, it wasn't obvious which part was causing it since multiple components are running at the same time. Overall the activity gave me a better appreciation for why systems are designed this way, where each part works independently so one failure doesn't bring everything else down.
+
 
 ---
 
