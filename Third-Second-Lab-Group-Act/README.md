@@ -327,8 +327,9 @@ The fault tolerance tests were where I learned the most. Seeing the API keep acc
 
 ### Mag-isa, Jules
 
-[Write 2-3 paragraphs based on your actual experience. Discuss what you observed during normal operation, what happened during fault injection, and what you learned about distributed systems. Do not write theoretical explanations — focus on what you actually saw happen in the terminals and Supabase tables.]
+Though I haven't seen that much other than working on the essays of the reflections or questions, I can say, through some quick skimming, on how I have oberserved with regards to our group's work. While reading some of my group mates' own reflection essays, I read that, in the voting system exercise, three separate terminals of api_service.py, worker_service.py, and edge_node.py even "worked" together even if they have not met each other, as if they have already "knew" each other when they are allinputted with their respective code. Like actual elections counting votes to ensure accuracy and transparent votes, this exercise pends with new rows before being changed as processed by the workers in picking them up. Some votes have 0 votes, while others have at least one vote. 
 
+As per the fellow group mates' reflecctions, I can say that even when suddenly stopped, the API remained working, the edge node never quit, and votes are still visible. Even when "restarted" all over again, they can work without theperson who instructed or saw them, like me, they did their jobs together like one of them does one thing, the second does the other, and so on. It's like they keep going until all of them broke. When one's broken and the others are still good, they push on until taks complete, done collectively until all work's done.  
 ---
 
 ### Sajol, Rhenel Jhon
