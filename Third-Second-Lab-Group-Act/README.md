@@ -168,12 +168,19 @@ Open **3 separate terminals**, activate venv in each, then run in this order:
 ```bash
 # Terminal 1 — Start API first
 python api_service.py
+# Terminal 1 — With Time (60 secs sample)
+timeout 60 python api_service.py 2>&1 | tee api_log.txt
 
 # Terminal 2 — Start Worker
 python worker_service.py
+# Terminal 2 — With Time (60 secs sample)
+timeout 60 python worker_service.py 2>&1 | tee worker_log.txt
 
 # Terminal 3 — Start Edge Node
 python edge_node.py
+# Terminal 3 — With Time (60 secs sample)
+timeout 60 python edge_node.py 2>&1 | tee edge_log.txt
+
 ```
 
 If you want a single command instead, run:
@@ -313,11 +320,19 @@ Latency was measured from `time_created` in the edge node to processing time in 
 
 ---
 
-### [Student 4 Full Name]
+### Sajol, Rhenel Jhon
+
+When I started `api_service.py`, `worker_service.py`, and `edge_node.py` in three separate terminals, I watched how they worked together without needing to know about each other. The `edge_node.py` sent votes every few seconds, and the API accepted them with "POST /vote HTTP/1.1 200" responses. The worker just kept checking the queue by printing messages. When I opened `votes_queue` in Supabase, I saw something interesting happening in real time - new rows appeared with `status='pending'`, and then a few seconds later the status changed to 'processed' as the worker picked them up. The most important observation was after running for 60 seconds, I checked the database and found 22 votes in the `votes` table with 0 rows still pending. Every vote had traveled through the entire system smoothly from `edge_node.py` to `api_service.py` to `votes_queue` to `worker_service.py` and finally to the `votes` table.
+
+The real lesson came when I stopped `worker_service.py` using Ctrl+C while letting `edge_node.py` continue sending votes. For about 15 seconds, the API kept accepting votes normally and they piled up in `votes_queue` with `status='pending'`. What surprised me was that nothing broke - the API did not crash, `edge_node.py` did not give up, and votes did not disappear. Then I restarted the worker by running `worker_service.py` again, and it immediately started processing all those waiting votes without any help from me. Looking at the code in `api_service.py` and `worker_service.py`, I realized they do completely different jobs but they communicate through the same `votes_queue` table using the status column. The API only cares about inserting data, and the worker only cares about reading and updating. Neither one needs to check if the other is working at that exact moment. This separation is what makes the system strong and able to handle problems. If one part breaks, the other keeps working and the queue holds everything safe until the broken part comes back online.
+
+---
+### [Student 5 Full Name]
 
 [Write 2-3 paragraphs based on your actual experience. Discuss what you observed during normal operation, what happened during fault injection, and what you learned about distributed systems. Do not write theoretical explanations — focus on what you actually saw happen in the terminals and Supabase tables.]
 
 ---
+
 
 ## Repository Structure
 

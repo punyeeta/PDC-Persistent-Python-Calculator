@@ -83,15 +83,15 @@
  
 > **Note:** All evaluation steps work the same way. Instead of GCP dashboards, you use terminal logs and Supabase Table Editor to count and verify rows.
 
-How we will perform the System Evaluation & Performance Analysis (step-by-step):
+System Evaluation & Performance Analysis (step-by-step):
 
 1. Prepare a clean workspace
 	- In Supabase SQL Editor run `DELETE FROM votes;` and `DELETE FROM votes_queue;` to clear prior runs.
 
 2. Start components
-	- Terminal A: `python api_service.py`
-	- Terminal B: `python worker_service.py`
-	- Terminal C: `python edge_node.py`
+	- Terminal A: `python api_service.py 2>&1 | tee api_log.txt`
+	- Terminal B: `python worker_service.py 2>&1 | tee worker_log.txt`
+	- Terminal C: `python edge_node.py 2>&1 | tee edge_log.txt`
 
 3. Run the workload for a fixed interval (e.g., 30–60s) and save logs from each terminal.
 
