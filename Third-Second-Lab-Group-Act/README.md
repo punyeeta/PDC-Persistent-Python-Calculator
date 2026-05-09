@@ -176,6 +176,14 @@ python worker_service.py
 python edge_node.py
 ```
 
+If you want a single command instead, run:
+
+```bash
+python main.py
+```
+
+That starts the API, worker, and edge node together as separate processes.
+
 If you want to test the worker without real Supabase data, run:
 
 ```bash
