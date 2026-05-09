@@ -1,11 +1,12 @@
 # CS323 Distributed Voting System
 ### Laboratory Activity 2 | CS323 - Distributed Systems
-**Group:** [Group Number]  
+**Group:** Shonget
 **Members:**
-- [Student 1 Full Name]
-- [Student 2 Full Name]
-- [Student 3 Full Name]
-- [Student 4 Full Name]
+- Chiong, Heart
+- Limpahan, Mark Vincent
+- Locsin, Roxanne
+- Mag-isa, Jules
+- Sajol, Rhenel Jhon
 
 ---
 
@@ -302,19 +303,26 @@ Latency was measured from `time_created` in the edge node to processing time in 
 
 ## Individual Reflections
 
-### [Student 1 Full Name]
+### Chiong, Heart
 
 [Write 2-3 paragraphs based on your actual experience. Discuss what you observed during normal operation, what happened during fault injection, and what you learned about distributed systems. Do not write theoretical explanations — focus on what you actually saw happen in the terminals and Supabase tables.]
 
 ---
 
-### [Student 2 Full Name]
+### Limpahan, Mark Vincent
 
+Running these terminals made distributed systems feel real for me in a way that you can only see when you're actually hands-on doing the lectures discussed. Watching the edge node send votes, the API accept them, and the worker drain the queue  made loose coupling click. I kept refreshing the Supabase Table Editor and seeing rows flip from `pending` to `processed`, and it was a simple thing that actually said a lot about how the system was designed.
+
+The fault tolerance tests were where I learned the most. Seeing the API keep accepting votes without any issue while the worker was down showed me that the queue is not just a convenience. The duplication test was equally surprising because the `votes` table count never changed no matter how many duplicate votes were sent, and the idempotency key handled it completely silently. When the worker came back online and processed everything on its own, it confirmed that recovery does not have to be complicated if the architecture is set up right. The biggest shift in how I think about systems after this activity is that reliability is not about preventing failure, butabout making sure failure stays contained and recoverable. That idea became very concrete here, and I do not think I would have understood it the same way without actually watching it happen in the terminals.
+
+---
+
+### Locsin, Roxanne
 [Write 2-3 paragraphs based on your actual experience. Discuss what you observed during normal operation, what happened during fault injection, and what you learned about distributed systems. Do not write theoretical explanations — focus on what you actually saw happen in the terminals and Supabase tables.]
 
 ---
 
-### [Student 3 Full Name]
+### Mag-isa, Jules
 
 [Write 2-3 paragraphs based on your actual experience. Discuss what you observed during normal operation, what happened during fault injection, and what you learned about distributed systems. Do not write theoretical explanations — focus on what you actually saw happen in the terminals and Supabase tables.]
 
@@ -326,10 +334,7 @@ When I started `api_service.py`, `worker_service.py`, and `edge_node.py` in thre
 
 The real lesson came when I stopped `worker_service.py` using Ctrl+C while letting `edge_node.py` continue sending votes. For about 15 seconds, the API kept accepting votes normally and they piled up in `votes_queue` with `status='pending'`. What surprised me was that nothing broke - the API did not crash, `edge_node.py` did not give up, and votes did not disappear. Then I restarted the worker by running `worker_service.py` again, and it immediately started processing all those waiting votes without any help from me. Looking at the code in `api_service.py` and `worker_service.py`, I realized they do completely different jobs but they communicate through the same `votes_queue` table using the status column. The API only cares about inserting data, and the worker only cares about reading and updating. Neither one needs to check if the other is working at that exact moment. This separation is what makes the system strong and able to handle problems. If one part breaks, the other keeps working and the queue holds everything safe until the broken part comes back online.
 
----
-### [Student 5 Full Name]
 
-[Write 2-3 paragraphs based on your actual experience. Discuss what you observed during normal operation, what happened during fault injection, and what you learned about distributed systems. Do not write theoretical explanations — focus on what you actually saw happen in the terminals and Supabase tables.]
 
 ---
 
