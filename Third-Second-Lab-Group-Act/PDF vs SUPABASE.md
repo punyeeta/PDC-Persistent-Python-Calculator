@@ -6,7 +6,7 @@
  
 | PDF (GCP) | Our Version (Supabase) | Status |
 |---|---|---|
-| Create GCP project | Create Supabase project | ✅ Same idea |
+| Create GCP project | Create Supabase project |  Same idea |
 | Enable Cloud Run, Pub/Sub, Firestore APIs | No API enabling needed — Supabase is ready out of the box |  Simpler |
 | Create Firestore database (Native Mode, asia-southeast1) | Create `votes` table in Supabase (PostgreSQL) |  Same purpose |
 | Create Pub/Sub topic: `vote-topic` | Create `votes_queue` table with status column |  Replaces Pub/Sub |
