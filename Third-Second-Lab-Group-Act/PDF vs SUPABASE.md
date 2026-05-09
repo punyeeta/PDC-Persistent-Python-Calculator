@@ -116,11 +116,11 @@ Notes:
  
 | PDF (GCP) | Our Version (Supabase) | Status |
 |---|---|---|
-| Individual reflection paragraphs in README.md | Same — individual reflections in README.md | ✅ Identical |
-| Architecture diagram showing system flow | Same — architecture diagram showing new flow | ✅ Same requirement |
-| Demo GIF or video of system running | Same — screen record all 3 terminals running | ✅ Identical |
-| Cloud Run API endpoint URL | No deployed URL — noted in README that Supabase was used | ⚠️ No public URL |
-| GitHub repository with all components | Same — GitHub repository | ✅ Identical |
+| Individual reflection paragraphs in README.md | Same — individual reflections in README.md |  Identical |
+| Architecture diagram showing system flow | Same — architecture diagram showing new flow |  Same requirement |
+| Demo GIF or video of system running | Same — screen record all 3 terminals running |  Identical |
+| Cloud Run API endpoint URL | No deployed URL — noted in README that Supabase was used |  No public URL |
+| GitHub repository with all components | Same — GitHub repository |  Identical |
  
 > **Note:** The only missing piece is a public Cloud Run URL. This is noted in the README with an explanation that Supabase was used as an alternative approved by the professor.
  
