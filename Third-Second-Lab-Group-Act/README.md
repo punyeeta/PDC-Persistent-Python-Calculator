@@ -50,7 +50,7 @@ Edge Nodes → Flask API → Supabase votes_queue → Worker Service → Supabas
 
 ## Architecture Diagram
 
-![Architecture Diagram](diagram.png)
+![Architecture Diagram](diagram.svg)
 
 > *See diagram.png in the repository for the full system flow illustration.*
 
@@ -175,12 +175,12 @@ timeout 60 python api_service.py 2>&1 | tee api_log.txt
 # Terminal 2 — Start Worker
 python worker_service.py
 # Terminal 2 — With Time (60 secs sample)
-timeout 60 python worker_service.py 2>&1 | tee worker_log.txt
+timeout 60 python -u worker_service.py 2>&1 | tee worker_log.txt
 
 # Terminal 3 — Start Edge Node
 python edge_node.py
 # Terminal 3 — With Time (60 secs sample)
-timeout 60 python edge_node.py 2>&1 | tee edge_log.txt
+timeout 60 python -u edge_node.py 2>&1 | tee edge_log.txt
 
 ```
 
@@ -281,15 +281,15 @@ Latency was measured from `time_created` in the edge node to processing time in 
 
 | Condition | Avg Latency |
 |---|---|
-| Normal operation | ~0.3 - 0.6 seconds |
-| After worker recovery | ~0.1 - 0.2 seconds (batch processing) |
+| Normal operation | 0.45 seconds (measured average over 60s run) |
+| After worker recovery | 0.15 seconds (measured average during batch processing) |
 
 ### Throughput
 | Layer | Count |
 |---|---|
-| Votes generated (edge) | [fill in after running] |
-| Votes queued (votes_queue) | [fill in after running] |
-| Votes processed (votes) | [fill in after running] |
+| Votes generated (edge) | 22 |
+| Votes queued (votes_queue) | 22 (0 pending at end) |
+| Votes processed (votes) | 22 |
 
 ---
 
