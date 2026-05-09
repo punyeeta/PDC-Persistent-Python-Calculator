@@ -295,7 +295,7 @@ Latency was measured from `time_created` in the edge node to processing time in 
 
 ## Demo
 
-<img width="720" height="406" alt="2026-05-09 22-56-35 (1)" src="https://github.com/user-attachments/assets/9cc64bd6-3fef-4b21-a85d-ff4270352c1c" />
+<img width="1152" height="648" alt="2026-05-09 22-56-35 (1)" src="https://github.com/user-attachments/assets/9cc64bd6-3fef-4b21-a85d-ff4270352c1c" />
 
 
 > *See demo.gif in the repository for a live demonstration of the system.*
